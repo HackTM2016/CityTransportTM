@@ -105,6 +105,15 @@ var app = angular.module('starter', ['ionic', 'starter.controllers', 'starter.se
         }
       }
     })
+    .state('view.routeMap', {
+      url: '/routeMap',
+      views: {
+        'view-route-map': {
+          templateUrl: 'views/routeMap/routeMap.html',
+          controller: 'RouteMapController'
+        }
+      }
+    })
   ;
   // if none of the above states are matched, use this as the fallback
   $urlRouterProvider.otherwise('/tab/dash');
