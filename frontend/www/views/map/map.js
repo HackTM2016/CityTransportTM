@@ -13,25 +13,25 @@ appControllers
     $scope.myPosition = {latitude: 45.7456645, longitude: 21.2411096};
     //map = $scope.map.control.getGMap();
 
-    StationsService.getNearest($scope.myPosition.latitude, $scope.myPosition.longitude, 10).then(function(data) {
-      data.data.stations.forEach(function(station){
-        // console.log(station);
-        var buildingMarker =
-          new google.maps.Marker(
-            {
-              position: new google.maps.LatLng(station.lat, station.lng),
-              title: station.friendly_name
-              // icon: '../../img/tramvaie.png'
-            }
-          );
-        $scope.markers.push(buildingMarker);
-        buildingMarker.setMap($scope.map.control.getGMap());
-        buildingMarker.addListener('click', $scope.markerClick);
-      });
-    }).catch(function(data){
-      console.log("err getting nearest stations");
-      console.log(data);
-    });
+    // StationsService.getNearest($scope.myPosition.latitude, $scope.myPosition.longitude, 10).then(function(data) {
+    //   data.data.stations.forEach(function(station){
+    //     // console.log(station);
+    //     var buildingMarker =
+    //       new google.maps.Marker(
+    //         {
+    //           position: new google.maps.LatLng(station.lat, station.lng),
+    //           title: station.friendly_name
+    //           // icon: '../../img/tramvaie.png'
+    //         }
+    //       );
+    //     $scope.markers.push(buildingMarker);
+    //     buildingMarker.setMap($scope.map.control.getGMap());
+    //     buildingMarker.addListener('click', $scope.markerClick);
+    //   });
+    // }).catch(function(data){
+    //   console.log("err getting nearest stations");
+    //   console.log(data);
+    // });
 
     var stationWindow =  new google.maps.InfoWindow({
       content: contentStr
@@ -79,19 +79,21 @@ appControllers
         }
       });
     };
-    // var showRouteStations = function (stations) {
-    //   $scope.markers = []
-    //   for (let station of stations) {
-    //     let marker = new google.maps.Marker(
-    //         {
-    //           position: {lat: station.lat, lng: station.lng},
-    //           title: station.friendly_name,
-    //           icon: '../../img/tramvaie.png'
-    //         }
-    //       );
-    //       $scope.markers.push(marker)
-    //   }
-    // }
+    var showRouteStations = function (stations) {
+      stations.forEach(function (station, i) {
+        if (!(i === 0 || i === stations.length-1)) {
+          let marker = new google.maps.Marker(
+              {
+                position: {lat: station.lat, lng: station.lng},
+                title: station.friendly_name,
+                icon: '../../img/tramvaie.png'
+              }
+            );
+            $scope.markers.push(marker)
+            marker.setMap($scope.map.control.getGMap())
+        }
+      })
+    }
     var showRoute = function (lineId) {
       $http.get(backendApi + 'get_routes?line_id=' + lineId)
         .then(function (res) {
@@ -102,6 +104,7 @@ appControllers
           console.log(end)
           console.log(start)
           $scope.getDirections(start, end, 'TRAM');
+          showRouteStations(stations)
         })
     }
     showRoute(1558)
