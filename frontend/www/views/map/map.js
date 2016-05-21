@@ -6,7 +6,7 @@ console.log("map controller loading");
 
 appControllers
 
-  .controller('MapController', function($scope, StationsService) { // uiGmapGoogleMapApi
+  .controller('MapController', function($scope, StationsService, $http) { // uiGmapGoogleMapApi
     console.log("map controller loaded");
 
     $scope.map = { control: {}, center: { latitude: 45.745139, longitude: 21.241582 }, zoom: 13 };
@@ -20,8 +20,8 @@ appControllers
           new google.maps.Marker(
             {
               position: new google.maps.LatLng(station.lat, station.lng),
-              title: station.friendly_name,
-              icon: '../../img/tramvaie.png'
+              title: station.friendly_name
+              // icon: '../../img/tramvaie.png'
             }
           );
         $scope.markers.push(buildingMarker);
@@ -60,11 +60,12 @@ appControllers
 
     // get directions using google maps api
 
-    $scope.getDirections = function () {
+    $scope.getDirections = function (origin, destination, transportType) {
       var request = {
-        origin: $scope.directions.origin,
-        destination: $scope.directions.destination,
-        travelMode: google.maps.DirectionsTravelMode.TRANSIT
+        origin: origin,
+        destination: destination,
+        travelMode: google.maps.DirectionsTravelMode.TRANSIT,
+        transitOptions: {modes: [google.maps.TransitMode[transportType]]}
       };
 
       directionsService.route(request, function (response, status) {
@@ -78,9 +79,32 @@ appControllers
         }
       });
     };
-    setTimeout(function () {
-      $scope.getDirections();
-    }, 3000);
+    // var showRouteStations = function (stations) {
+    //   $scope.markers = []
+    //   for (let station of stations) {
+    //     let marker = new google.maps.Marker(
+    //         {
+    //           position: {lat: station.lat, lng: station.lng},
+    //           title: station.friendly_name,
+    //           icon: '../../img/tramvaie.png'
+    //         }
+    //       );
+    //       $scope.markers.push(marker)
+    //   }
+    // }
+    var showRoute = function (lineId) {
+      $http.get(backendApi + 'get_routes?line_id=' + lineId)
+        .then(function (res) {
+          var stations = res.data.routes[1].stations
+          console.log(stations)
+          var start = {lat: stations[0].lat, lng: stations[0].lng}
+          var end = {lat: stations[stations.length-1].lat, lng: stations[stations.length-1].lng}
+          console.log(end)
+          console.log(start)
+          $scope.getDirections(start, end, 'TRAM');
+        })
+    }
+    showRoute(1558)
 
   });
 
