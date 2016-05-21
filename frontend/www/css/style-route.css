@@ -1,0 +1,20 @@
+.tabs-route {
+
+
+	border-bottom:1px solid #ddd;
+}
+
+
+/*ion-content div:first-child {
+    height: 100%;*/
+
+/*header*/
+.bar-stable .nav-bar-block ion-header-bar {
+	background:#E62739;
+}
+
+.bar.bar-stable .title {
+	color:#ddd;
+}
+
+/* navigarea principala */
