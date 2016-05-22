@@ -12,8 +12,8 @@ appControllers
     $scope.myPosition = {latitude: 45.7456645, longitude: 21.2411096};
 
     $scope.$on('loadRouteOnMap', function(){
-      var routeToLoad = $rootScope.routeToLoad;
-      console.log("loading map for route ", routeToLoad);
+      var selectedRoute = $rootScope.selectedRoute;
+      console.log("loading map for route ", selectedRoute);
     });
 
     $scope.init = function () {
