@@ -7,7 +7,14 @@ from flask import jsonify, request
 
 @app.route("/api/get_stations")
 def get_stations():
-	stations = data.get_stations().values()
+	try:
+		line_types = {line_type for line_type in request.args.get("line_types").split(',') if line_type}
+		stations = set()
+		for line_type in line_types:
+			stations |= data.get_stations_by_type(line_type)
+	except (AttributeError, TypeError, ValueError):
+		stations = data.get_stations().values()
+
 	return jsonify({'stations': [station.__dict__ for station in stations]})
 
 
@@ -66,7 +73,7 @@ def get_routes_for_station():
 			rd = {'route_id': rt.route_id, 'route_name': rt.route_name, 'arrival': routes[rt].__dict__}
 			rts.append(rd)
 
-		return {'line_id': line.line_id, 'line_name': line.line_name, 'line_type': line.line_type, 'routes': rts}
+		return {'line_id': line.line_id, 'line_name': line.line_name, 'friendly_name': line.friendly_name, 'line_type': line.line_type, 'routes': rts}
 
 	result['lines'] = [make_line_dict(line) for line in lines]
 	return jsonify(result)

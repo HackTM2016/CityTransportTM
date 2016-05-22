@@ -15,6 +15,14 @@ cache_opts = {
 
 cache = CacheManager(**parse_cache_config_options(cache_opts))
 
+cache_opts = {
+    'cache.type': 'file',
+    'cache.data_dir': 'cache/data',
+    'cache.lock_dir': 'cache/lock'
+}
+
+long_cache = CacheManager(**parse_cache_config_options(cache_opts))
+
 known_stations_csv = "Lines Stations and Junctions - Timisoara Public Transport - Denumiri-20152012.csv"
 known_lines_csv = "Timisoara Public Transport - Linii.csv"
 
@@ -50,6 +58,15 @@ def get_junction_stations(junction_name: str) -> Sequence[ratt.Station]:
 get_junction_stations.junction_name_to_stations = None
 
 
+def get_stations_by_type(line_type: str) -> Sequence[ratt.Station]:
+	if not get_stations_by_type.line_type_to_stations:
+		get_routes()
+
+	return get_stations_by_type.line_type_to_stations[line_type]
+
+get_stations_by_type.line_type_to_stations = None
+
+
 @cache.cache('all_lines', expire=3600 * 24)
 def get_lines() -> Sequence[ratt.Line]:
 	lines = importer.parse_lines_from_csv(known_lines_csv)
@@ -68,14 +85,23 @@ get_line.line_id_to_line = None
 
 @cache.cache('all_routes', expire=3600 * 24)
 def get_routes() -> Dict[int, Tuple[ratt.Route, ratt.Route]]:
-	line_id_to_routes = ratt.get_route_info_from_infotraffic(known_lines_csv, known_stations_csv)
+	@long_cache.cache('routes', expire=3600 * 12)
+	def _scrape():
+		return ratt.get_route_info_from_infotraffic(known_lines_csv, known_stations_csv)
+
+	line_id_to_routes = _scrape()
 	get_station_routes.station_id_to_routes = defaultdict(list)
+	get_stations_by_type.line_type_to_stations = defaultdict(set)
 	for line in line_id_to_routes.values():
 		for route in line:
+			ln = get_line(route.line_id)
 			for station in route.stations:
 				get_station_routes.station_id_to_routes[station.station_id].append(route)
+				if ln:
+					get_stations_by_type.line_type_to_stations[ln.line_type].add(station)
 
 	get_station_routes.station_id_to_routes = dict(get_station_routes.station_id_to_routes)
+	get_stations_by_type.line_type_to_stations = dict(get_stations_by_type.line_type_to_stations)
 	return line_id_to_routes
 
 
