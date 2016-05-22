@@ -1,3 +1,5 @@
+from collections import defaultdict
+
 import data
 from init import app
 from flask import jsonify, request
@@ -5,7 +7,14 @@ from flask import jsonify, request
 
 @app.route("/api/get_stations")
 def get_stations():
-	stations = data.get_stations().values()
+	try:
+		line_types = {line_type for line_type in request.args.get("line_types").split(',') if line_type}
+		stations = set()
+		for line_type in line_types:
+			stations |= data.get_stations_by_type(line_type)
+	except (AttributeError, TypeError, ValueError):
+		stations = data.get_stations().values()
+
 	return jsonify({'stations': [station.__dict__ for station in stations]})
 
 
@@ -50,19 +59,23 @@ def get_routes_for_station():
 	result = dict(station.__dict__)
 	stations = data.get_junction_stations(station.junction_name) if station.junction_name else [station]
 	routes = { }
+	lines = defaultdict(list)
 	for station in stations:
 		for route in data.get_station_routes(station.station_id):
+			ln = data.get_line(route.line_id)
+			lines[ln].append(route)
 			if route not in routes:
 				routes[route] = data.get_arrival(route.line_id, route.route_id, station.station_id)
 
-	def make_route_dict(route, arrival):
-		rd = {'line_id': route.line_id, 'route_id': route.route_id, 'route_name': route.route_name}
-		ln = data.get_line(route.line_id)
-		rd.update({'line_name': ln.line_name, 'line_type': ln.line_type})
-		rd['arrival'] = arrival.__dict__
-		return rd
+	def make_line_dict(line):
+		rts = []
+		for rt in lines[line]:
+			rd = {'route_id': rt.route_id, 'route_name': rt.route_name, 'arrival': routes[rt].__dict__}
+			rts.append(rd)
 
-	result['routes'] = [make_route_dict(route, arrival) for route, arrival in routes.items()]
+		return {'line_id': line.line_id, 'line_name': line.line_name, 'friendly_name': line.friendly_name, 'line_type': line.line_type, 'routes': rts}
+
+	result['lines'] = [make_line_dict(line) for line in sorted(lines, key=lambda line: (line.line_type, line.line_id))]
 	return jsonify(result)
 
 
