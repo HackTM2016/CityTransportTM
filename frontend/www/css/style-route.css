@@ -63,5 +63,21 @@
 	color:white;
 }
 
+/*route lists */
+
+.view-container .list .item-icon-left i.ion-android-bus {
+	color:#aaa;
+}
 
 
+.view-container .list .item-icon-left .item-icon-left .icon:before, 
+.view-container .list .item-icon-left .item-icon-right .icon:before {
+    margin-left: 26px;
+}
+.view-container .list a.item {
+color: #F00;
+}
+
+.view-container .list a.item .ion-map {
+	color:#ccc;
+}
