@@ -173,17 +173,21 @@ span.timeIsMoney {
 .toggleStation a.item {
 	padding: 5px;
 }
-.ruta .bus, .ruta span.bus {
+.ruta .bus, .ruta .trolley {
 	color:#E62739;
 }
-.ruta .tram, .ruta span.tram {
+.ruta .tram{
 	color:#555;
 }
-.ruta .bycicle, .ruta span.bycicle{
+.ruta .bycicle{
 	color:#8a65c5;
 }
-.ruta .boat, .ruta span.boat {
+.ruta .boat{
 	color:#6ED3CF;
+}
+
+span.ora {
+	color:#E62739;;
 }
 /*.timpSpan {
 	
