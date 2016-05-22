@@ -109,7 +109,7 @@ def get_station_routes(station_id: int) -> Sequence[ratt.Route]:
 	if not get_station_routes.station_id_to_routes:
 		get_routes()
 
-	return get_station_routes.station_id_to_routes[station_id]
+	return get_station_routes.station_id_to_routes[station_id] if station_id in get_station_routes.station_id_to_routes else []
 
 get_station_routes.station_id_to_routes = None
 
