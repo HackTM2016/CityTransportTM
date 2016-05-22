@@ -13,13 +13,13 @@ appControllers
     $scope.interval = null;
 
     $scope.$on('$ionicView.leave', function() {
-      console.log("on leave");
+      console.log("on leave routeDetails");
       if($scope.interval){
         clearInterval($scope.interval);
       }
     });
     $scope.$on('$ionicView.enter', function() {
-      console.log("on enter");
+      console.log("on enter routeDetails");
       if($scope.interval){
         clearInterval($scope.interval);
       }
@@ -46,7 +46,7 @@ appControllers
       $scope.route = route;
       console.log("loading route(details): ", route);
       RoutesService.getRoute(route.line_id).then(function (data) {
-        console.log("sdfdsf", data);
+        //console.log("sdfdsf", data);
         $scope.routes = data.data.routes;
         $scope.getTimes();
       });
@@ -57,8 +57,8 @@ appControllers
     $scope.getTimes = function () {
       var crtRouteId = $scope.route_id;
       RoutesService.getTimes($scope.route.line_id, crtRouteId).then(function (data) {
-        console.log("got times");
-        console.log(data);
+        //console.log("got times");
+        //console.log(data);
         data.data.arrivals.forEach(function (arrival) {
 
           $scope.routes[crtRouteId].stations.forEach(function (station) {

@@ -52,6 +52,10 @@ appControllers
       });
     };
     var showRouteStations = function (stations) {
+      $scope.markers.forEach(function(marker){
+        marker.setMap(null);
+      });
+      $scope.markers = [];
       stations.forEach(function (station, i) {
         console.log(station);
         if (station.lat && station.lng) {
@@ -67,16 +71,16 @@ appControllers
                   icon: iconUrl
                 }
               );
-              $scope.markers.push(marker)
+              $scope.markers.push(marker);
               marker.setMap($scope.map.control.getGMap())
         }
       })
-    }
+    };
 
     $scope.loadRoute = function(route) {
       console.log("loading route(maps): ", route);
-      var lineId = route.line_id
-      var transportType = route.line_type.toUpperCase()
+      var lineId = route.line_id;
+      var transportType = route.line_type.toUpperCase();
       $http.get(backendApi + 'get_routes?line_id=' + lineId)
         .then(function (res) {
           var stations = res.data.routes[1].stations;
@@ -87,7 +91,7 @@ appControllers
           console.log(start);
           $scope.getDirections(start, end, transportType);
           showRouteStations(stations);
-        })
+        });
     };
 
     $scope.init();

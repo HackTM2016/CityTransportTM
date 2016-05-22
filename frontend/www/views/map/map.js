@@ -9,8 +9,10 @@ appControllers
   .controller('MapController', function($scope, StationsService, $http, $rootScope) { // uiGmapGoogleMapApi
     console.log("map controller loaded");
 
-    $scope.map = { control: {}, center: { latitude: 45.745139, longitude: 21.241582 }, zoom: 13 };
+    $scope.map = { control: {}, center: { latitude: 45.745139, longitude: 21.241582 }, zoom: 16 };
     $scope.myPosition = {latitude: 45.7456645, longitude: 21.2411096};
+    $scope.visible = false;
+    $scope.selectedTT = "bus";
     //map = $scope.map.control.getGMap();
 
     // StationsService.getNearest($scope.myPosition.latitude, $scope.myPosition.longitude, 10).then(function(data) {
@@ -116,10 +118,25 @@ appControllers
           // console.log(start);
           // $scope.getDirections(start, end, transportType);
           showStations(stations);
-        })
+        });
     };
     showRoute();
 
+    $scope.$on('$ionicView.leave', function() {
+      console.log("leave map");
+      $scope.visible = false;
+    });
+    $scope.$on('$ionicView.enter', function() {
+      console.log("enter map");
+      $scope.visible = true;
+    });
+
+    $scope.$on('toggleTT', function () {
+      if(!$scope.visible){return;}
+      var tt = $rootScope.selectedTT;
+      console.log("toggleTT in main map: " + tt);
+      $scope.selectedTT = tt;
+    });
   });
 
 var contentStr = "<div><h2>Mergeee!</h2></div>";
