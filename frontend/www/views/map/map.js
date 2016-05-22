@@ -93,7 +93,7 @@ appControllers
             marker.setMap($scope.map.control.getGMap())
         }
       })
-    }
+    };
     var showRoute = function (lineId) {
       $http.get(backendApi + 'get_routes?line_id=' + lineId)
         .then(function (res) {

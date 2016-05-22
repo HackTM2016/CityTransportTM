@@ -22,12 +22,13 @@ appControllers
         console.log(data);
       });
     };
-    $rootScope.toggleTT = function (tt) {
+    $scope.$on('toggleTT', function () {
+      var tt = $rootScope.selectedTT;
       console.log("toggleTT in routectrl: " + tt);
       $scope.selectedTT = tt;
       $scope.refreshVisibleRoutes();
       document.getElementsByClassName("scroll")[0].setAttribute("style", "");
-    };
+    });
     $scope.init();
 
     $scope.refreshVisibleRoutes = function() {
@@ -42,7 +43,7 @@ appControllers
         }
       }
       console.log(c + " / " + $scope.routes.length);
-      console.log($scope.routes);
+      //console.log($scope.routes);
     };
 
     $scope.initRoutes = function () {
@@ -59,11 +60,7 @@ appControllers
       });
     };
 
-    var parseTT = function(tt) {
-      if(tt == 'bus') {
-        return 'trolley,bus';
-      }
-      else return tt;
-    };
+
+    $scope.displayRouteMap = true;
   });
 

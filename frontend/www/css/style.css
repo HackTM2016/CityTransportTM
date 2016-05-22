@@ -15,3 +15,23 @@
 ionic-content.view{
   bottom: 50px;
 }
+
+.popupMap{
+  position: fixed;
+  bottom:50px;
+  width: 100vw;
+  height: 60vw;
+  z-index:5;
+}
+
+.fullHeight {
+  height: 100%;
+}
+
+.popupMap>.fullHeight,
+.popupMap>.fullHeight>*,
+.popupMap>.fullHeight>*>*,
+.popupMap>.fullHeight>*>*>*,
+.popupMap>.fullHeight>*>*>*>*{
+  height: 100%;
+}
