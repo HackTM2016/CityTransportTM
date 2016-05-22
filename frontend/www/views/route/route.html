@@ -4,14 +4,14 @@
 
   <div class="list">
 
-  <a class="item item-icon-left item-icon-right"
+  <a class="item item-icon-left item-icon-right {{route.line_type}}"
 
      ng-repeat="route in routes"
      ng-if="route.visible"
      ng-click="routeClick(route);">
     <i class="icon {{route.iconClass}}"></i>
     {{route.line_name}}
-    <i class="icon ion-map"
+    <i class="icon ion-ios-location-outline"
         ng-click="routeMapIconClick(route, $event);"
     ></i>
   </a>
