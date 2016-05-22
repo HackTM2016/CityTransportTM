@@ -6,7 +6,7 @@ console.log("map controller loading");
 
 appControllers
 
-  .controller('MapController', function($scope, StationsService, $http) { // uiGmapGoogleMapApi
+  .controller('MapController', function($scope, StationsService, $http, $rootScope) { // uiGmapGoogleMapApi
     console.log("map controller loaded");
 
     $scope.map = { control: {}, center: { latitude: 45.745139, longitude: 21.241582 }, zoom: 13 };
@@ -37,12 +37,11 @@ appControllers
       content: contentStr
     });
 
-    // $scope.markerClick = function () {
-    //   //console.log(this.title);
-    //   //console.log(stationWindow);
-    //   stationWindow.setContent("<div><h2>" + this.title + "</h2></div>");
-    //   stationWindow.open($scope.map.control.getGMap(), this);
-    // };
+    $scope.markerClick = function () {
+     // console.log("clicked st: ", this, this.station);
+      $rootScope.currentStation = this.station;
+      $rootScope.$broadcast('loadCurrentStation');
+    };
     //
     $scope.markers = [];
 
@@ -89,21 +88,23 @@ appControllers
           } else {
             var iconUrl = '../../img/tramvaie.png'
           }
-            let marker = new google.maps.Marker(
+            var marker = new google.maps.Marker(
                 {
                   position: {lat: station.lat, lng: station.lng},
                   title: station.friendly_name,
                   icon: iconUrl
                 }
               );
+              marker.station = station;
               $scope.markers.push(marker)
-              marker.setMap($scope.map.control.getGMap())
+              marker.setMap($scope.map.control.getGMap());
+              marker.addListener('click', $scope.markerClick);
         } else {
           // console.log(station.lat);
           // console.log(station.lng);
         }
-      })
-    }
+      });
+    };
     var showRoute = function () {
       $http.get(backendApi + 'get_stations')
         .then(function (res) {
@@ -116,8 +117,8 @@ appControllers
           // $scope.getDirections(start, end, transportType);
           showStations(stations);
         })
-    }
-    showRoute()
+    };
+    showRoute();
 
   });
 

@@ -44,3 +44,16 @@ ion-view.pane {
   top: 100px;
   bottom: 48px;
 }
+
+.currentStationWrapper {
+  position: absolute;
+  background: white;
+  bottom: 50px;
+  left: 0;
+  width: 100%;
+  z-index: 1000;
+  max-height: 250px;
+}
+.currentStationWrapper .stationName{
+  font-size:2em;
+}

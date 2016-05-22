@@ -52,10 +52,9 @@ appControllers
             }
           });
         });
-      })
+      });
+      setTimeout(function() {$scope.getTimes();}, 3000);
     };
-
-
 
     $scope.init();
   });
