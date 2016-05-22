@@ -10,6 +10,22 @@ appControllers
     $scope.routes = [];
     $scope.route_id = 0;
     $scope.route = null;
+    $scope.interval = null;
+
+    $scope.$on('$ionicView.leave', function() {
+      console.log("on leave");
+      if($scope.interval){
+        clearInterval($scope.interval);
+      }
+    });
+    $scope.$on('$ionicView.enter', function() {
+      console.log("on enter");
+      if($scope.interval){
+        clearInterval($scope.interval);
+      }
+      $scope.interval = setInterval(function() {$scope.getTimes();}, 30000);
+    });
+
     $scope.init = function () {
       $scope.$on('openRouteDetails', function() {
         $scope.loadRoute($rootScope.selectedRoute);
@@ -53,7 +69,6 @@ appControllers
           });
         });
       });
-      setTimeout(function() {$scope.getTimes();}, 3000);
     };
 
     $scope.init();

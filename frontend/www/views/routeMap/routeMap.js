@@ -56,11 +56,11 @@ appControllers
         console.log(station);
         if (station.lat && station.lng) {
           if (i === 0 || i === stations.length-1) {
-            var iconUrl = '../../img/start_2.png'
+            var iconUrl = 'img/start_2.png'
           } else {
-            var iconUrl = '../../img/tramvaie.png'
+            var iconUrl = 'img/tramvaie.png'
           }
-            let marker = new google.maps.Marker(
+            var marker = new google.maps.Marker(
                 {
                   position: {lat: station.lat, lng: station.lng},
                   title: station.friendly_name,

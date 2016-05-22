@@ -84,9 +84,9 @@ appControllers
       stations.forEach(function (station, i) {
         if (station.lat && station.lng){
           if (i === 0 || i === stations.length-1) {
-            var iconUrl = '../../img/start_2.png'
+            var iconUrl = 'img/start_2.png'
           } else {
-            var iconUrl = '../../img/tramvaie.png'
+            var iconUrl = 'img/tramvaie.png'
           }
             var marker = new google.maps.Marker(
                 {
