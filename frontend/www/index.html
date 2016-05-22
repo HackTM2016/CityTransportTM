@@ -25,7 +25,8 @@
     <!--<script src="lib/angular-google-maps/dist/angular-google-maps.js"></script>-->
 
     <script data-require="google-maps@1.0.0" data-semver="1.0.0" src="http://maps.google.com/maps/api/js?key=AIzaSyApRi0-9K1I5rzidtCGwYMY9ZHEWmgAHY4"></script>
-    <script data-require="angular-google-maps@*" data-semver="1.1.4" src="https://rawgit.com/nlaplante/angular-google-maps/1.1.4/dist/angular-google-maps.min.js"></script>
+    <!--<script data-require="angular-google-maps@*" data-semver="1.1.4" src="https://rawgit.com/nlaplante/angular-google-maps/1.1.4/dist/angular-google-maps.min.js"></script>-->
+    <script data-require="angular-google-maps@*" data-semver="1.1.4" src="js/angular-google-maps.min.js"></script>
 
 
     <!-- cordova script (this will be a 404 during development) -->
@@ -39,18 +40,18 @@
     <script src="services/StationsService.js"></script>
     <script src="services/RoutesService.js"></script>
 
-    <script src="views/map/map.js"></script>
     <script src="views/route/route.js"></script>
     <script src="views/secondaryTabMenu/secondaryTabMenu.js"></script>
     <script src="views/routeMap/routeMap.js"></script>
     <script src="views/routeDetails/routeDetails.js"></script>
+    <script src="views/map/map.js"></script>
 
   </head>
   <body ng-app="starter">
     <!--
       The nav bar that will be updated as we navigate between views.
     -->
-    <ion-nav-bar class="bar-stable"> <img src="img/logo_mic_alb.png" class="logoHeader" />
+    <ion-nav-bar class="bar-stable"> <i class="icon ion-ios-arrow-left item-icon-left"></i> <img src="img/logo_mic_alb.png" class="logoHeader" />
       <ion-nav-back-button>
       </ion-nav-back-button>
     </ion-nav-bar>

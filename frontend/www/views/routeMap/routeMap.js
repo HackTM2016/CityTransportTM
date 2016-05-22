@@ -13,14 +13,14 @@ appControllers
     $scope.markers = [];
 
     $scope.$on('loadRouteOnMap', function(){
-      var routeToLoad = $rootScope.routeToLoad;
-      console.log("loading map for route ", routeToLoad);
+      var selectedRoute = $rootScope.selectedRoute;
+      console.log("loading map for route ", selectedRoute);
     });
 
     $scope.init = function () {
       if($rootScope.selectedRoute == undefined) {
         $location.path('/view/route');
-        return ;
+        return;
       }
       $scope.$on('loadRouteOnMap', function() {
         $scope.loadRoute($rootScope.selectedRoute);

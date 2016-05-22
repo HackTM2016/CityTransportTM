@@ -1,10 +1,22 @@
+@font-face {
+    font-family: Open Sans;
+    src: url(fonts/OpenSans-Light.ttf);
+    font-weight:300;
+}
+@font-face {
+    font-family: Open Sans;
+    src: url(fonts/OpenSans-Regular.ttf);
+}
+
+
+
 /*header*/
 .bar-stable .nav-bar-block ion-header-bar {
 	background:#E62739;
 }
 
 .bar.bar-stable .title {
-	color:#ddd;
+	color:white;
 	padding-left:10px;
 	font-weight: 100;
 	font-family:"Open Sans";
@@ -17,6 +29,16 @@
 	right:0px;
 	z-index:100;
 	padding:6px;
+}
+
+.bar-stable .ion-ios-arrow-left {
+position:absolute;
+float:left;
+left:0px; 
+z-index:100;
+font-size:36px;
+padding:5px 10px; 
+color:white;
 }
 /* navigarea principala */
 .tabs-top.tabs-striped .tab-item.tab-item-active,
@@ -65,19 +87,51 @@
 
 /*route lists */
 
-.view-container .list .item-icon-left i.ion-android-bus {
-	color:#aaa;
+.view-container .list .item-icon-left i{
+	color:#555;
 }
 
-
-.view-container .list .item-icon-left .item-icon-left .icon:before, 
-.view-container .list .item-icon-left .item-icon-right .icon:before {
-    margin-left: 26px;
+.view-container .list .item-icon-left .icon, 
+.view-container .list .item-icon-right .icon{
+    padding-left: 15px;
 }
-.view-container .list a.item {
+
+.view-container .list .item {
+	padding-left:75px;
+}
+.view-container .list a.bus, .view-container .list a.trolley {
 color: #F00;
+font-family:Open Sans;
 }
+.view-container .list a.tram {
+color: #555;
+font-family:Open Sans;
+}
+.view-container .list a.bycicle {
+color: #8a65c5;
+font-family:Open Sans;
+}
+.view-container .list a.boat {
+color: #387ef5;
+font-family:Open Sans;
+}
+
 
 .view-container .list a.item .ion-map {
 	color:#ccc;
 }
+
+/*view-ul cu timpii */
+
+span.timeIsMoney {
+	font-weight:bold;
+	font-size:20px;
+	margin-right:30px;
+	color:rgba(255, 0, 0, 0.60);
+}
+
+.view-container .timpi .item {
+	padding-left:20px;
+}
+
+    

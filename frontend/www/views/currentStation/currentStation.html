@@ -1,9 +1,7 @@
 <ion-view view-title="City Transport Timișoara">
- <!-- <div style="height:100%"> -->
   <ion-content class="view">
 
-  <div class="list">
-
+<div class="toggleStation">
   <a class="item item-icon-left item-icon-right {{route.line_type}}"
 
      ng-repeat="route in routes"
@@ -11,17 +9,11 @@
      ng-click="routeClick(route);">
     <i class="icon {{route.iconClass}}"></i>
     {{route.line_name}}
-    <i class="icon ion-ios-location-outline"
-        ng-click="routeMapIconClick(route, $event);"
-    ></i>
+    <div class="timp">
+    	<div class="col"><i class="icon ion-ios-arrow-right"></i> Capăt de linie 1</div>
+    	<div class="col"> Capăt de linie 2 <i class="icon ion-ios-arrow-left"></i></div>
+    </div>
   </a>
-
-
-  </div>
-
-  	<!-- <p>shng sgfhsonsdf ndgfon jndrogs idg sslkngs gjsndongms dgksndfkvn </p>  -->
-
-
+</div>
   </ion-content>
-	<!-- </div> -->
 </ion-view>
