@@ -8,7 +8,9 @@
     src: url(fonts/OpenSans-Regular.ttf);
 }
 
-
+body {
+	font-family:Open Sans;
+}
 
 /*header*/
 .bar-stable .nav-bar-block ion-header-bar {
@@ -57,10 +59,10 @@ color:white;
 .tabs-route {
 	padding:0px;
 }
-.tabs-route a.tab-item{
+/*.tabs-route a.tab-item{
 	background:#ddd;
 
-}
+}*/
 .tabs-route .icon{
 	/*color:555;*/
 }
@@ -134,10 +136,49 @@ span.timeIsMoney {
 	padding-left:20px;
 }
 
-/*map with stations toggle up */
 
-.timp {
+/*map with stations toggle up */
+.toggleStation .stationName {
+	padding:15px;
+}
+.toggleStation .ion-close-round {
+	color:#aaa;
+}
+.toggleStation a.item-icon-left {
+	padding-left:20;
+	vertical-align: bottom;
+}
+.ruta .timp {
+	text-align:center;
 	display:block;
+	width:200px;
+	overflow:hidden;
+	text-overflow:ellipsis;
+	margin-left:10%;
 }
 
-    
+.ruta .linie {
+	padding-top:25px;
+	font-weight:bold;
+	font-size:30px;
+	max-width:50px;
+}
+
+.ruta .bus, .ruta span.bus {
+	color:#E62739;
+}
+.ruta .tram, .ruta span.tram {
+	color:#555;
+}
+.ruta .bycicle, .ruta span.bycicle{
+	color:#8a65c5;
+}
+.ruta .boat, .ruta span.boat {
+	color:#6ED3CF;
+}
+/*.timpSpan {
+	
+	color:#;
+	text-overflow: ellipsis;
+
+}*/

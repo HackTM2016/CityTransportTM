@@ -1,19 +1,21 @@
 <div ng-controller="CurrentStationController">
-  <div class="toggleStation" ng-if="visible" >
-    <div class="stationName item item-divider">{{station.friendly_name}}</div>
+
+  <div class="toggleStation scroll" ng-if="visible" >
+    <div class="stationName item item-divider item-icon-right">{{station.friendly_name}}<i class="icon ion-close-round"></i> </div>
 
     <a class="item item-icon-left item-icon-right {{route.line_type}}"
        ng-repeat="line in lines"
        ng-click="lineClick(line);">
       <i class="icon {{route.iconClass}}"></i>
-      <div class="row">
-        <div class="col ">{{line.friendly_name}}</div>
-        <div class="timp"><i class="icon ion-ios-arrow-right"></i> {{line.routes[0].route_name}}
-        <br/>
+      <div class="row ruta">
+        <div class="col linie {{line.line_type}}">{{line.friendly_name}}</div>
+        <div class="timp col col-offset-50 "><span><span class="{{line.line_type}}" >{{line.routes[0].arrival.arrival}}</span> > {{line.routes[0].route_name}} </span> 
+        <hr width="50%"/>
           
-          <span ng-if="line.routes.length > 1"> {{line.routes[1].route_name}} <i class="icon ion-ios-arrow-left"></i></span>
+          <span ng-if="line.routes.length > 1" ><span class="{{line.line_type}}">{{line.routes[1].arrival.arrival}}</span> < {{line.routes[1].route_name}} </span>
         </div>
       </div>
     </a>
   </div>
+
 </div>
