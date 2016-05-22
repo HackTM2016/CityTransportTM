@@ -45,14 +45,18 @@
     <script src="views/routeMap/routeMap.js"></script>
     <script src="views/routeDetails/routeDetails.js"></script>
     <script src="views/map/map.js"></script>
+    <script src="views/currentStation/currentStation.js"></script>
 
   </head>
   <body ng-app="starter">
     <!--
       The nav bar that will be updated as we navigate between views.
     -->
-    <ion-nav-bar class="bar-stable"> <img src="img/logo_mic_alb.png" class="logoHeader" />
-      <ion-nav-back-button>
+    <ion-nav-bar class="bar-stable" ng-controller="NavMenuController">
+      <i class="icon ion-ios-arrow-left item-icon-left" ng-click="backButtonPressed();" style="cursor:pointer;"></i>
+      <img src="img/logo_mic_alb.png" class="logoHeader" />
+      <ion-nav-back-button class="button-clear">
+        <i class="ion-arrow-left-c"></i> Back
       </ion-nav-back-button>
     </ion-nav-bar>
     <!--

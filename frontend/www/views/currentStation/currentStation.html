@@ -1,0 +1,16 @@
+<div ng-controller="CurrentStationController">
+  <div class="toggleStation" >
+    <a class="item item-icon-left item-icon-right {{route.line_type}}"
+
+       ng-repeat="route in routes"
+       ng-if="route.visible"
+       ng-click="routeClick(route);">
+      <i class="icon {{route.iconClass}}"></i>
+      {{route.line_name}}
+      <div class="timp">
+        <div class="col"><i class="icon ion-ios-arrow-right"></i> Capăt de linie 1</div>
+        <div class="col"> Capăt de linie 2 <i class="icon ion-ios-arrow-left"></i></div>
+      </div>
+    </a>
+  </div>
+</div>
