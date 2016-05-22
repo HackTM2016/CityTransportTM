@@ -178,18 +178,19 @@ def exception_handler(request: grequests.AsyncRequest, exception: Exception):
 	print("Exception while handling request %s:\n%s" % (str(request.url), str(exception)))
 
 
-def get_line_times(line_id: int, station_ids: List[int]) -> Sequence[Arrival]:
+def get_station_arrival(line_id: int, station_id: int) -> Arrival:
 	"""
 	Get all arrival times for a given line by individual requests to http://www.ratt.ro/txt/
 	Parameters
 	----------
 	line_id
-	station_ids
+	station_id
 
 	Returns
 	-------
 	Station arrival times.
 	"""
+	station_ids = [station_id]
 	gets = []
 	for station_id in station_ids:
 		params = {'id_traseu': line_id, 'id_statie': station_id}
@@ -209,7 +210,7 @@ def get_line_times(line_id: int, station_ids: List[int]) -> Sequence[Arrival]:
 		finally:
 			response.close()
 
-	return arrivals
+	return arrivals[0]
 
 
 def parse_arrivals_from_infotrafic(line_id: int, stations: Dict[str, Station], response: requests.Response, include_unknown_stations: bool = False) -> Tuple[List[Tuple[Union[Station,str], Arrival]]]:

@@ -9,6 +9,7 @@ appControllers
 
     $scope.selectedTT = "bus";
     $scope.routes = [];
+    $scope.visible = false;
 
     $scope.init = function () {
       $rootScope.$on("toggleTT", $scope.toggleTT);
@@ -22,7 +23,16 @@ appControllers
         console.log(data);
       });
     };
+    $scope.$on('$ionicView.leave', function() {
+      console.log("on leave RouteController");
+      $scope.visible = false;
+    });
+    $scope.$on('$ionicView.enter', function() {
+      console.log("on enter RouteController");
+      $scope.visible = true;
+    });
     $scope.$on('toggleTT', function () {
+      if(!$scope.visible){return;}
       var tt = $rootScope.selectedTT;
       console.log("toggleTT in routectrl: " + tt);
       $scope.selectedTT = tt;

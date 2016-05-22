@@ -1,16 +1,23 @@
-<div ng-controller="CurrentStationController">
-  <div class="toggleStation" >
-    <a class="item item-icon-left item-icon-right {{route.line_type}}"
+<div ng-controller="CurrentStationController" >
 
-       ng-repeat="route in routes"
-       ng-if="route.visible"
-       ng-click="routeClick(route);">
-      <i class="icon {{route.iconClass}}"></i>
-      {{route.line_name}}
-      <div class="timp">
-        <div class="col"><i class="icon ion-ios-arrow-right"></i> Capăt de linie 1</div>
-        <div class="col"> Capăt de linie 2 <i class="icon ion-ios-arrow-left"></i></div>
-      </div>
-    </a>
+  <div class="toggleStation"  ng-if="visible">
+    <div class="stationName item item-divider item-icon-right">{{station.friendly_name}}
+      <i class="icon ion-close-round" ng-click="closeMe();" style="cursor:pointer;"></i> </div>
+
+        <ion-scroll style="bottom:0;" >
+          <a class="item item-icon-left item-icon-right {{route.line_type}}"
+             ng-repeat="line in lines"
+             ng-click="lineClick(line);">
+            <i class="icon {{route.iconClass}}"></i>
+            <div class="row ruta">
+              <div class="col linie {{line.line_type}}">{{line.friendly_name}}</div>
+              <div class="timp col col-offset-50 "><span><span class="ora" >{{line.routes[0].arrival.arrival}}</span> > {{line.routes[0].route_name}} </span>
+              <hr width="50%"/>
+
+                <span ng-if="line.routes.length > 1" ><span class="ora">{{line.routes[1].arrival.arrival}}</span> < {{line.routes[1].route_name}} </span>
+              </div>
+            </div>
+          </a>
+        </ion-scroll>
   </div>
 </div>

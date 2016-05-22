@@ -10,6 +10,22 @@ appControllers
     $scope.routes = [];
     $scope.route_id = 0;
     $scope.route = null;
+    $scope.interval = null;
+
+    $scope.$on('$ionicView.leave', function() {
+      console.log("on leave routeDetails");
+      if($scope.interval){
+        clearInterval($scope.interval);
+      }
+    });
+    $scope.$on('$ionicView.enter', function() {
+      console.log("on enter routeDetails");
+      if($scope.interval){
+        clearInterval($scope.interval);
+      }
+      $scope.interval = setInterval(function() {$scope.getTimes();}, 30000);
+    });
+
     $scope.init = function () {
       $scope.$on('openRouteDetails', function() {
         $scope.loadRoute($rootScope.selectedRoute);
@@ -27,10 +43,11 @@ appControllers
     };
 
     $scope.loadRoute = function(route) {
+      $scope.routes = [];
       $scope.route = route;
       console.log("loading route(details): ", route);
       RoutesService.getRoute(route.line_id).then(function (data) {
-        console.log("sdfdsf", data);
+        //console.log("sdfdsf", data);
         $scope.routes = data.data.routes;
         $scope.getTimes();
       });
@@ -41,8 +58,8 @@ appControllers
     $scope.getTimes = function () {
       var crtRouteId = $scope.route_id;
       RoutesService.getTimes($scope.route.line_id, crtRouteId).then(function (data) {
-        console.log("got times");
-        console.log(data);
+        //console.log("got times");
+        //console.log(data);
         data.data.arrivals.forEach(function (arrival) {
 
           $scope.routes[crtRouteId].stations.forEach(function (station) {
@@ -52,10 +69,8 @@ appControllers
             }
           });
         });
-      })
+      });
     };
-
-
 
     $scope.init();
   });

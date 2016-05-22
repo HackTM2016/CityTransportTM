@@ -16,4 +16,8 @@ app.service("RoutesService", function ($http) {
   this.getTimes = function(line_id, route_id) {
     return $http.get(backendApi + "get_arrival_times?line_id=" + line_id + "&route_id=" + route_id );
   };
+
+  this.getRoutesForStation = function(station_id) {
+    return $http.get(backendApi + "get_routes_for_station?station_id=" + station_id);
+  }
 });
