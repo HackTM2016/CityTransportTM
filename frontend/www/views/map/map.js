@@ -72,42 +72,47 @@ appControllers
         if (status === google.maps.DirectionsStatus.OK) {
           directionsDisplay.setDirections(response);
           directionsDisplay.setMap($scope.map.control.getGMap());
+          directionsDisplay.setOptions({ suppressMarkers: true });
           directionsDisplay.setPanel(document.getElementById('directionsList'));
           $scope.directions.showList = true;
         } else {
+          console.log(response, status);
           console.log('Google route unsuccesfull!');
         }
       });
     };
     var showRouteStations = function (stations) {
       stations.forEach(function (station, i) {
-        if (!(i === 0 || i === stations.length-1)) {
+        if (i === 0 || i === stations.length-1) {
+          var iconUrl = '../../img/start_2.png'
+        } else {
+          var iconUrl = '../../img/tramvaie.png'
+        }
           let marker = new google.maps.Marker(
               {
                 position: {lat: station.lat, lng: station.lng},
                 title: station.friendly_name,
-                icon: '../../img/tramvaie.png'
+                icon: iconUrl
               }
             );
             $scope.markers.push(marker)
             marker.setMap($scope.map.control.getGMap())
-        }
       })
     }
-    var showRoute = function (lineId) {
+    var showRoute = function (lineId, transportType) {
       $http.get(backendApi + 'get_routes?line_id=' + lineId)
         .then(function (res) {
-          var stations = res.data.routes[1].stations
-          console.log(stations)
-          var start = {lat: stations[0].lat, lng: stations[0].lng}
-          var end = {lat: stations[stations.length-1].lat, lng: stations[stations.length-1].lng}
-          console.log(end)
-          console.log(start)
-          $scope.getDirections(start, end, 'TRAM');
-          showRouteStations(stations)
+          var stations = res.data.routes[1].stations;
+          console.log(stations);
+          var start = {lat: stations[0].lat, lng: stations[0].lng};
+          var end = {lat: stations[stations.length-1].lat, lng: stations[stations.length-1].lng};
+          console.log(end);
+          console.log(start);
+          $scope.getDirections(start, end, transportType);
+          showRouteStations(stations);
         })
     }
-    showRoute(1558)
+    showRoute(1207, 'BUS')
 
   });
 
