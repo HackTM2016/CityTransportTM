@@ -9,16 +9,16 @@ import velo
 import boats
 
 cache_opts = {
-    'transient.type': 'memory',
-    'transient.lock_dir': 'transient/lock'
+    'cache.type': 'memory',
+    'cache.lock_dir': 'transient/lock'
 }
 
 transient = CacheManager(**parse_cache_config_options(cache_opts))
 
 cache_opts = {
-    'transient.type': 'file',
-    'transient.data_dir': 'transient/data',
-    'transient.lock_dir': 'transient/lock'
+    'cache.type': 'file',
+    'cache.data_dir': 'transient/data',
+    'cache.lock_dir': 'transient/lock'
 }
 
 persistent = CacheManager(**parse_cache_config_options(cache_opts))

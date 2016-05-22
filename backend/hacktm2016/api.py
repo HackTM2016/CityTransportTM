@@ -75,7 +75,7 @@ def get_routes_for_station():
 
 		return {'line_id': line.line_id, 'line_name': line.line_name, 'friendly_name': line.friendly_name, 'line_type': line.line_type, 'routes': rts}
 
-	result['lines'] = [make_line_dict(line) for line in lines]
+	result['lines'] = [make_line_dict(line) for line in sorted(lines, key=lambda line: (line.line_type, line.line_id))]
 	return jsonify(result)
 
 
