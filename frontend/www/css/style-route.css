@@ -12,15 +12,15 @@
 
 /*logo header */
 .logoHeader {
-	display:inline; 
-	position:absolute; 
-	right:0px; 
-	z-index:100; 
+	display:inline;
+	position:absolute;
+	right:0px;
+	z-index:100;
 	padding:6px;
 }
 /* navigarea principala */
-.tabs-top.tabs-striped .tab-item.tab-item-active, 
-.tabs-top.tabs-striped .tab-item.active, 
+.tabs-top.tabs-striped .tab-item.tab-item-active,
+.tabs-top.tabs-striped .tab-item.active,
 .tabs-top.tabs-striped .tab-item.activated {
 	border-width:0px !important;
 }
@@ -37,23 +37,27 @@
 }
 .tabs-route a.tab-item{
 	background:#ddd;
-	
+
 }
 .tabs-route .icon{
-	color:555;
+	/*color:555;*/
 }
+.tabs-route a.bus.active,
 .tabs-route a.bus:active{
 	background:#e62739;
 	color:white;
 }
+.tabs-route a.train.active,
 .tabs-route a.train:active{
 	background:#555555;
 	color:white;
 }
+.tabs-route a.bicycle.active,
 .tabs-route a.bicycle:active{
 	background:#8a65c5;
 	color:white;
 }
+.tabs-route a.boat.active,
 .tabs-route a.boat:active{
 	background:#6ed3cf;
 	color:white;

@@ -5,8 +5,9 @@
 appControllers
   .controller('SecondaryMenuController', function($scope, $rootScope) {
     console.log("secondary tabs menu controller loaded");
+    $scope.selectedTT = 'bus';
     $scope.toogleTT = function (tt) {
-        $rootScope.selectedTT = tt;
+        $scope.selectedTT = $rootScope.selectedTT = tt;
         $rootScope.$broadcast('toggleTT');
     };
   });
