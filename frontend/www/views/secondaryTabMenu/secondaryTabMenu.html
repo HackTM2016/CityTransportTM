@@ -1,19 +1,19 @@
 
 <div class="tabs tabs-icon-up tabs-route row row-bottom" ng-controller="SecondaryMenuController" >
-  <a class="tab-item bus">
-    <i class="icon ion-android-bus" ></i>
+  <a class="tab-item bus" ng-class="{'active': selectedTT=='bus'}">
+    <i class="icon ion-android-bus" ng-click="toogleTT('bus');" ></i>
     Bus
   </a>
-  <a class="tab-item train">
-    <i class="icon ion-android-train"></i>
+  <a class="tab-item train" ng-class="{'active': selectedTT=='tram'}">
+    <i class="icon ion-android-train" ng-click="toogleTT('tram');" ></i>
     Tramvai
   </a>
-  <a class="tab-item bicycle">
-    <i class="icon ion-android-bicycle"></i>
+  <a class="tab-item bicycle" ng-class="{'active': selectedTT=='bicycle'}">
+    <i class="icon ion-android-bicycle" ng-click="toogleTT('bicycle');" ></i>
     Biciclete
   </a>
-  <a class="tab-item boat">
-    <i class="icon ion-android-boat"></i>
+  <a class="tab-item boat" ng-class="{'active': selectedTT=='boat'}">
+    <i class="icon ion-android-boat" ng-click="toogleTT('boat');" ></i>
     Barcă
   </a>
 </div>

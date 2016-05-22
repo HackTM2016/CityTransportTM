@@ -4,15 +4,18 @@
 
   <div class="list">
 
-  <a class="item item-icon-left" href="javascript:void(0);" ng-repeat="route in routes"
-     ng-if="route.visible">
+  <a class="item item-icon-left item-icon-right"
+     href="javascript:void(0);"
+     ng-repeat="route in routes"
+     ng-if="route.visible"
+     ng-click="routeClick(route);">
     <i class="icon {{route.iconClass}}"></i>
     {{route.line_name}}
+    <i class="icon ion-map"></i>
   </a>
 
 
-
-</div>
+  </div>
 
   	<!-- <p>shng sgfhsonsdf ndgfon jndrogs idg sslkngs gjsndongms dgksndfkvn </p>  -->
 
