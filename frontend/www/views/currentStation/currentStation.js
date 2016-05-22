@@ -27,7 +27,7 @@ appControllers
 
     $scope.loadStation = function (station) {
       if(!$scope.station || ($scope.station.station_id != station.station_id)){
-        lines = [];
+        $scope.lines = [];
       }
       $scope.visible = true;
       $scope.station = station;
@@ -40,8 +40,11 @@ appControllers
 
         console.log("got routes for station", data);
         $scope.lines = data.data.lines;
-    });
+      });
     };
-
+    $scope.closeMe = function(){
+      $scope.lines = [];
+      $scope.visible = false;
+    };
     $scope.init();
   });

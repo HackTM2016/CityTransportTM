@@ -43,6 +43,7 @@ appControllers
     };
 
     $scope.loadRoute = function(route) {
+      $scope.routes = [];
       $scope.route = route;
       console.log("loading route(details): ", route);
       RoutesService.getRoute(route.line_id).then(function (data) {
