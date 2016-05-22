@@ -19,6 +19,7 @@ appControllers
     $scope.init = function () {
       if($rootScope.selectedRoute == undefined) {
         $location.path('/view/route');
+        return;
       }
       $scope.$on('loadRouteOnMap', function() {
         $scope.loadRoute($rootScope.selectedRoute);

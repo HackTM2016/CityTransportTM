@@ -39,3 +39,8 @@ ionic-content.view{
 a.hiddenLink{
   display: none;
 }
+ion-view.pane {
+  height: auto;
+  top: 100px;
+  bottom: 48px;
+}

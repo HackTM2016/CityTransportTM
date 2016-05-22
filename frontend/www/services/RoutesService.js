@@ -10,4 +10,7 @@ app.service("RoutesService", function ($http) {
   this.get = function(line_types) {
     return $http.get(backendApi + "get_lines?line_types=" + line_types);
   };
+  this.getTimes = function(line_id, route_id) {
+    return $http.get(backendApi + "get_arrival_times?line_id=" + line_id + "&route_id=" + route_id );
+  };
 });

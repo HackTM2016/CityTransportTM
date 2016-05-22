@@ -5,13 +5,13 @@
 console.log("route details controller loading");
 
 appControllers
-
   .controller('RouteDetailsController', function($scope, StationsService, $rootScope, $location) {
     console.log("route details controller loaded");
 
     $scope.init = function () {
       if($rootScope.selectedRoute == undefined) {
         $location.path('/view/route');
+        return;
       }
       $scope.$on('openRouteDetails', function() {
         $scope.loadRoute($rootScope.selectedRoute);
