@@ -215,32 +215,31 @@ def get_station_arrival(line_id: int, station_id: int) -> Arrival:
 
 def parse_arrivals_from_infotrafic(line_id: int, stations: Dict[str, Station], response: requests.Response, include_unknown_stations: bool = False) -> Tuple[List[Tuple[Union[Station,str], Arrival]]]:
 	response.raise_for_status()
-	if response.status_code == requests.codes.ok:
-		bs = bs4.BeautifulSoup(response.text, "html.parser")
-		prevcolor = None
-		datacolor = '00BFFF'
-		routes = []
-		route = None
-		tz = pytz.timezone("Europe/Bucharest")
-		now = tzlocal.get_localzone().localize(datetime.now()).astimezone(tz).replace(second=0, microsecond=0)
-		for row in bs.find_all("table"):
-			if row['bgcolor'] == datacolor:
-				if prevcolor != datacolor:
-					route = []
-					routes.append(route)
+	bs = bs4.BeautifulSoup(response.text, "html.parser")
+	prevcolor = None
+	datacolor = '00BFFF'
+	routes = []
+	route = None
+	tz = pytz.timezone("Europe/Bucharest")
+	now = tzlocal.get_localzone().localize(datetime.now()).astimezone(tz).replace(second=0, microsecond=0)
+	for row in bs.find_all("table"):
+		if row['bgcolor'] == datacolor:
+			if prevcolor != datacolor:
+				route = []
+				routes.append(route)
 
-				cols = row.find_all("b")
-				raw_station_name = cols[1].text.strip()
-				station = stations.get(raw_station_name, None)
-				arrival = parse_arrival(now, line_id, station.station_id if station else -1, cols[2].text)
-				if station is not None or include_unknown_stations:
-					route.append((station if station is not None else raw_station_name, arrival))
+			cols = row.find_all("b")
+			raw_station_name = cols[1].text.strip()
+			station = stations.get(raw_station_name, None)
+			arrival = parse_arrival(now, line_id, station.station_id if station else -1, cols[2].text)
+			if station is not None or include_unknown_stations:
+				route.append((station if station is not None else raw_station_name, arrival))
 
-			prevcolor = row['bgcolor']
+		prevcolor = row['bgcolor']
 
-		return routes if route else None
-
-	return None
+	if not route:
+		print("failed to parse route info for line %d" % line_id)
+	return routes if route else None
 
 
 def get_route_info_from_infotraffic(known_lines_csv: str, known_stations_csv: str)-> Dict[int, Tuple[Route, Route]]:
