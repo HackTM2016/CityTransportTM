@@ -47,11 +47,20 @@ appControllers
     };
 
     $scope.routeClick = function(route) {
-        console.log("clicked route");
+        console.log("clicked route(for details)");
         console.log(route);
         $rootScope.selectedRoute = route;
         $rootScope.$broadcast('openRouteDetails');
         $location.path('/view/routeDetails');
+    };
+
+    $scope.routeMapIconClick = function(route, $event) {
+      $event.stopPropagation();
+      console.log("clicked route(for maps)");
+      console.log(route);
+      $rootScope.selectedRoute = route;
+      $rootScope.$broadcast('loadRouteOnMap');
+      $location.path('/view/routeMap');
     };
 
     $scope.initRoutes = function () {
