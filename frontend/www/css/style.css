@@ -44,3 +44,7 @@ ion-view.pane {
   top: 100px;
   bottom: 48px;
 }
+
+.toggleStation ion-scroll {
+  max-height: 250px;
+}
