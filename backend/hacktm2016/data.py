@@ -10,15 +10,15 @@ import boats
 
 cache_opts = {
     'cache.type': 'memory',
-    'cache.lock_dir': 'transient/lock'
+    'cache.lock_dir': 'cache/lock'
 }
 
 transient = CacheManager(**parse_cache_config_options(cache_opts))
 
 cache_opts = {
     'cache.type': 'file',
-    'cache.data_dir': 'transient/data',
-    'cache.lock_dir': 'transient/lock'
+    'cache.data_dir': 'cache/data',
+    'cache.lock_dir': 'cache/lock'
 }
 
 persistent = CacheManager(**parse_cache_config_options(cache_opts))
@@ -123,7 +123,8 @@ def get_arrivals(line_id: int):
 def get_arrival(line_id: int, route_id: int, station_id: int) -> ratt.Arrival:
 	try:
 		return ratt.get_station_arrival(line_id, station_id)
-	except:
+	except Exception as e:
+		print("get_station_arrival(%d, %d) for single station failed: %s" % (line_id, station_id, str(e)))
 		for arrival in get_arrivals(line_id)[route_id]:
 			if arrival.station_id == station_id:
 				return arrival
