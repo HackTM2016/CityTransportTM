@@ -121,4 +121,17 @@ font-family:Open Sans;
 	color:#ccc;
 }
 
+/*view-ul cu timpii */
+
+span.timeIsMoney {
+	font-weight:bold;
+	font-size:20px;
+	margin-right:30px;
+	color:rgba(255, 0, 0, 0.60);
+}
+
+.view-container .timpi .item {
+	padding-left:20px;
+}
+
     
