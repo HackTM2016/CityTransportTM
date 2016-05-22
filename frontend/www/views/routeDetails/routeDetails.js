@@ -49,6 +49,8 @@ appControllers
       RoutesService.getRoute(route.line_id).then(function (data) {
         //console.log("sdfdsf", data);
         $scope.routes = data.data.routes;
+        console.log($scope.routes);
+        
         $scope.getTimes();
       });
 

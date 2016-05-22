@@ -9,10 +9,11 @@ appControllers
   .controller('MapController', function($scope, StationsService, $http, $rootScope) { // uiGmapGoogleMapApi
     console.log("map controller loaded");
 
-    $scope.map = { control: {}, center: { latitude: 45.745139, longitude: 21.241582 }, zoom: 16 };
+    $scope.map = { control: {}, center: { latitude: 45.745139, longitude: 21.241582 }, zoom: 15 };
     $scope.myPosition = {latitude: 45.7456645, longitude: 21.2411096};
     $scope.visible = false;
     $scope.selectedTT = "bus";
+    $scope.myMarker = null;
     //map = $scope.map.control.getGMap();
 
     // StationsService.getNearest($scope.myPosition.latitude, $scope.myPosition.longitude, 10).then(function(data) {
@@ -80,8 +81,9 @@ appControllers
     // };
 
     $scope.init = function() {
-
-      //navigator.geolocation.getCurrentPosition(onSuccess, onError);
+      setTimeout(function(){
+        navigator.geolocation.getCurrentPosition(onSuccess, onError);
+      });
     };
     $scope.init();
     var showStations = function (stations) {
@@ -182,7 +184,20 @@ appControllers
         'Heading: '           + position.coords.heading           + '\n' +
         'Speed: '             + position.coords.speed             + '\n' +
         'Timestamp: '         + position.timestamp                + '\n');
-      $scope.map.center = {latitude: position.coords.latitude, longitude: position.coords.longitude}
+      $scope.map.center = {latitude: position.coords.latitude, longitude: position.coords.longitude};
+      $scope.map.control.getGMap().setCenter({lat: position.coords.latitude, lng: position.coords.longitude });
+      if($scope.myMarker){
+        $scope.myMarker.setMap(null);
+      }
+      $scope.myMarker = new google.maps.Marker(
+        {
+          position: {lat: position.coords.latitude, lng: position.coords.longitude},
+          title: "Tu",
+          icon: "img/bus.png"
+        }
+      );
+      $scope.myMarker.setMap($scope.map.control.getGMap());
+      // console.log(document.tdr = $scope.map);
     };
 
     // onError Callback receives a PositionError object
