@@ -158,12 +158,21 @@ span.timeIsMoney {
 }
 
 .ruta .linie {
-	padding-top:25px;
+	padding-top:15px;
 	font-weight:bold;
-	font-size:30px;
+	font-size:20px;
 	max-width:50px;
 }
 
+.toggleStation .item-icon-left{
+	padding-left:0px;
+}
+.toggleStation .item-icon-right {
+	padding-right:0px;
+}
+.toggleStation a.item {
+	padding: 5px;
+}
 .ruta .bus, .ruta span.bus {
 	color:#E62739;
 }
