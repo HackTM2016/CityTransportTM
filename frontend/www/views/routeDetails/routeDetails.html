@@ -1,6 +1,10 @@
 <ion-view view-title="City Transport Timișoara">
   <ion-content class="padding view">
 
+      <div class=""
+           ng-repeat="station in routes[route_id].stations">
+        {{station.friendly_name}}  ({{station.arrivalTime}} - {{station.minutesLeft}})
+      </div>
 
   </ion-content>
 </ion-view>
