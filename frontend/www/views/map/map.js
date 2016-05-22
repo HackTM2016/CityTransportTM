@@ -35,10 +35,6 @@ appControllers
     //   console.log(data);
     // });
 
-    var stationWindow =  new google.maps.InfoWindow({
-      content: contentStr
-    });
-
     $scope.markerClick = function () {
      // console.log("clicked st: ", this, this.station);
       $rootScope.currentStation = this.station;
@@ -82,6 +78,12 @@ appControllers
     //     }
     //   });
     // };
+
+    $scope.init = function() {
+
+      //navigator.geolocation.getCurrentPosition(onSuccess, onError);
+    };
+    $scope.init();
     var showStations = function (stations) {
       stations.forEach(function (station, i) {
         if (station.lat && station.lng){
@@ -98,7 +100,7 @@ appControllers
                 }
               );
               marker.station = station;
-              $scope.markers.push(marker)
+              $scope.markers.push(marker);
               marker.setMap($scope.map.control.getGMap());
               marker.addListener('click', $scope.markerClick);
         } else {
@@ -122,6 +124,36 @@ appControllers
     };
     showRoute();
 
+
+    $scope.selectedTTChanged = function () {
+      $scope.selectedTT = $rootScope.selectedTT;
+      console.log("changes slectedTT to: " + $scope.selectedTT);
+      console.log($scope.markers.length);
+      var tt = $scope.selectedTT;
+      if(tt == "bus"){
+        tt = "bus,trolley";
+      }
+
+      if(tt == "") {
+        console.log("getall");
+        StationsService.getAll().then(gotStations);
+      }
+      else{
+        console.log("get");
+        StationsService.get(tt).then(gotStations);
+      }
+    };
+
+    var gotStations = function(data){
+      console.log("got stations", data);
+      $scope.markers.forEach(function(marker){
+        marker.setMap(null);
+      });
+      $scope.markers = [];
+      var stations = data.data.stations;
+      showStations(stations);
+    };
+
     $scope.$on('$ionicView.leave', function() {
       console.log("leave map");
       $scope.visible = false;
@@ -132,11 +164,32 @@ appControllers
     });
 
     $scope.$on('toggleTT', function () {
-      if(!$scope.visible){return;}
       var tt = $rootScope.selectedTT;
+      if(tt == $scope.selectedTT) {
+        $scope.selectedTT = "";
+      }
+      $scope.selectedTTChanged();
       console.log("toggleTT in main map: " + tt);
       $scope.selectedTT = tt;
     });
-  });
 
-var contentStr = "<div><h2>Mergeee!</h2></div>";
+    var onSuccess = function(position) {
+      console.log('Latitude: '          + position.coords.latitude          + '\n' +
+        'Longitude: '         + position.coords.longitude         + '\n' +
+        'Altitude: '          + position.coords.altitude          + '\n' +
+        'Accuracy: '          + position.coords.accuracy          + '\n' +
+        'Altitude Accuracy: ' + position.coords.altitudeAccuracy  + '\n' +
+        'Heading: '           + position.coords.heading           + '\n' +
+        'Speed: '             + position.coords.speed             + '\n' +
+        'Timestamp: '         + position.timestamp                + '\n');
+      $scope.map.center = {latitude: position.coords.latitude, longitude: position.coords.longitude}
+    };
+
+    // onError Callback receives a PositionError object
+    //
+    function onError(error) {
+      console.log('code: '    + error.code    + '\n' +
+        'message: ' + error.message + '\n');
+    }
+
+  });

@@ -52,8 +52,14 @@ ion-view.pane {
   left: 0;
   width: 100%;
   z-index: 1000;
-  max-height: 250px;
-  /*overflow:scroll;*/
+  max-height: 300px;
+}
+.currentStationWrapper>*{
+  position: absolute;
+  background: white;
+  width:100%;
+  max-height: 300px;
+  bottom:0;
 }
 .currentStationWrapper .stationName{
   font-size:2em;

@@ -11,11 +11,10 @@
         <div class="col linie {{line.line_type}}">{{line.friendly_name}}</div>
         <div class="timp col col-offset-50 "><span><span class="{{line.line_type}}" >{{line.routes[0].arrival.arrival}}</span> > {{line.routes[0].route_name}} </span> 
         <hr width="50%"/>
-          
+
           <span ng-if="line.routes.length > 1" ><span class="{{line.line_type}}">{{line.routes[1].arrival.arrival}}</span> < {{line.routes[1].route_name}} </span>
         </div>
       </div>
     </a>
   </div>
 
-</div>
