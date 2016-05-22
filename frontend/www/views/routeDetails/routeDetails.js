@@ -50,7 +50,12 @@ appControllers
         //console.log("sdfdsf", data);
         $scope.routes = data.data.routes;
         console.log($scope.routes);
-        
+        $scope.routes.forEach(function(route, i){
+          route.stations.forEach(function(station, j){
+            console.log(station);
+            station.indice = j;
+          });
+        });
         $scope.getTimes();
       });
 
@@ -73,6 +78,10 @@ appControllers
         });
       });
     };
-
+    $scope.toggleRoute = function () {
+      //console.log( $scope.route_id);
+      $scope.route_id = $scope.route_id? 0 : 1;
+      $scope.getTimes();
+    };
     $scope.init();
   });

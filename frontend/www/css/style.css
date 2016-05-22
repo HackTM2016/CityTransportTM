@@ -68,3 +68,11 @@ ion-view.pane {
 .toggleStation ion-scroll {
   max-height: 250px;
 }
+
+.headerIcon {
+  padding-right:10px;
+}
+.headerNumber {
+  font-weight:bold;
+  padding-right:10px;
+}

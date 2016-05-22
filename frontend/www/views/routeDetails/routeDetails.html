@@ -1,12 +1,16 @@
 <ion-view view-title="City Transport Timișoara">
   <ion-content class="padding view">
-
+    <a class="item">
+      <div style="text-align: center; cursor:pointer;" class="item-divider" ng-click="toggleRoute();">
+        <i class="icon {{route.iconClass}} headerIcon"></i><span class="headerNumber">{{route.line_name}}</span> {{routes[route_id].stations[0].friendly_name}} -> {{routes[route_id].route_name}}
+      </div>
+    </a>
   	<div class="list timpi">
       <a class="item"
            ng-repeat="station in routes[route_id].stations">
-        	<span class="timeIsMoney">{{station.arrivalTime}}</span>  {{station.friendly_name}}  
+        	<span class="timeIsMoney">{{station.arrivalTime}}</span>  {{station.friendly_name}}
       </a>
-      </div>
+    </div>
 
   </ion-content>
 </ion-view>
