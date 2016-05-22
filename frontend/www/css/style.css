@@ -35,3 +35,7 @@ ionic-content.view{
 .popupMap>.fullHeight>*>*>*>*{
   height: 100%;
 }
+
+a.hiddenLink{
+  display: none;
+}

@@ -114,6 +114,15 @@ var app = angular.module('starter', ['ionic', 'starter.controllers', 'starter.se
         }
       }
     })
+    .state('view.routeDetails', {
+      url: '/routeDetails',
+      views: {
+        'view-route-details': {
+          templateUrl: 'views/routeDetails/routeDetails.html',
+          controller: 'RouteDetailsController'
+        }
+      }
+    })
   ;
   // if none of the above states are matched, use this as the fallback
   $urlRouterProvider.otherwise('/tab/dash');

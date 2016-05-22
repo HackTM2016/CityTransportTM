@@ -4,7 +4,7 @@
 
 appControllers
 
-  .controller('RouteController', function($scope, $rootScope, RoutesService) {
+  .controller('RouteController', function($scope, $rootScope, RoutesService, $location) {
     console.log("route controller loaded");
 
     $scope.selectedTT = "bus";
@@ -46,6 +46,14 @@ appControllers
       //console.log($scope.routes);
     };
 
+    $scope.routeClick = function(route) {
+        console.log("clicked route");
+        console.log(route);
+        $rootScope.selectedRoute = route;
+        $rootScope.$broadcast('openRouteDetails');
+        $location.path('/view/routeDetails');
+    };
+
     $scope.initRoutes = function () {
       $scope.routes.forEach(function (route) {
         if(route.line_type == 'bus' || route.line_type == 'trolley') {
@@ -59,6 +67,7 @@ appControllers
         }
       });
     };
+
 
 
     $scope.displayRouteMap = true;
