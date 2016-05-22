@@ -37,6 +37,35 @@ def get_nearby_stations():
 	return jsonify({'stations': [station.__dict__ for station in sorted_list[:count]]})
 
 
+@app.route("/api/get_routes_for_station")
+def get_routes_for_station():
+	try:
+		station_id = int(request.args.get('station_id'))
+	except (ValueError, TypeError) as e:
+		response = jsonify({'error': str(e)})
+		response.status_code = 400
+		return response
+
+	station = data.get_station(station_id)
+	result = dict(station.__dict__)
+	stations = data.get_junction_stations(station.junction_name) if station.junction_name else [station]
+	routes = { }
+	for station in stations:
+		for route in data.get_station_routes(station.station_id):
+			if route not in routes:
+				routes[route] = data.get_arrival(route.line_id, route.route_id, station.station_id)
+
+	def make_route_dict(route, arrival):
+		rd = {'line_id': route.line_id, 'route_id': route.route_id, 'route_name': route.route_name}
+		ln = data.get_line(route.line_id)
+		rd.update({'line_name': ln.line_name, 'line_type': ln.line_type})
+		rd['arrival'] = arrival.__dict__
+		return rd
+
+	result['routes'] = [make_route_dict(route, arrival) for route, arrival in routes.items()]
+	return jsonify(result)
+
+
 @app.route("/api/get_arrival_times")
 def get_arrival_times():
 	line_id = int(request.args.get('line_id'))
@@ -80,3 +109,8 @@ def get_closest_bike_station():
 	sorted_list = sorted(data.get_bike_stations(), key=lambda station: ((lat - station.lat) ** 2 + (lng - station.lng) ** 2) ** 0.5)
 
 	return jsonify(sorted_list[0].__dict__)
+
+
+@app.route("/api/get_docks")
+def get_docks():
+	return jsonify({'docks': data.get_docks()})
